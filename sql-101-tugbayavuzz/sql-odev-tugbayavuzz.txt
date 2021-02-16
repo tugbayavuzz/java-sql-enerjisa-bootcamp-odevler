@@ -1,0 +1,75 @@
+----1.Soru 
+Select c.first_name, p.payment_date
+from customer AS c 
+inner join payment  AS p
+on c.customer_id = p.customer_id
+where payment_date>'2007-04-1' 
+order by c.customer_id asc;
+
+
+
+###################################################################
+
+
+--2.Soru Cevabı
+Select  
+f.title as FilmTitle, 
+c.name as CategoryName ,
+f.release_year as FilmRelease
+from 
+film AS f 
+inner join film_category AS fc
+on f.film_id = fc.film_id
+inner join category AS c
+on fc.category_id = c.category_id
+where c.name IN('Action', 'Animation');
+
+--2.SORU CEVABI .Burda category_id de gösterildi
+Select  
+c.category_id as CategoryID,
+f.title as FilmTitle, 
+c.name as CategoryName ,
+f.release_year as FilmRelease
+from 
+film AS f 
+inner join film_category AS fc
+on f.film_id = fc.film_id
+inner join category AS c
+on fc.category_id = c.category_id
+where c.category_id IN (1,2) AND c.name IN('Action', 'Animation');
+
+#############################################################################3
+
+--3.SORU CEVABI
+select 
+c.first_name,c.last_name,p.payment_date
+from customer AS c
+	inner join payment AS p on p.customer_id=c.customer_id
+	inner join rental AS r on p.customer_id=r.customer_id
+		order by  payment_date desc;
+
+########################################################################################
+
+--P ve P'den sonraki harflerle başlayan ve stokta bulunmayan filmleri listeleyen bir sorgu yazınız.
+--4.SORU CEVABI
+select 
+	f.title ,i.film_id,f.film_id
+	from inventory AS i
+	right join film AS f 
+	on i.film_id=f.film_id
+	where f.title 
+	similar to '[P-Z]%' and i.film_id is null;
+
+###################################################################
+--5.SORU CEVABI
+select c.first_name,c.last_name,SUM(p.amount)
+	from customer AS c
+	inner join payment AS p
+	on p.customer_id=c.customer_id
+	inner join rental AS r on r.customer_id=p.customer_id
+	where first_name like 'B%'
+ group  by  c.customer_id;
+
+
+
+
